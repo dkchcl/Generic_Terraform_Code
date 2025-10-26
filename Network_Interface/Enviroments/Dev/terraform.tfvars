@@ -180,31 +180,23 @@ nic_name = {
         name                                               = "dev-ip-config1"
         private_ip_address_allocation                      = "Dynamic"
         private_ip_address_version                         = "IPv4"
-        public_ip_address_id                               = null
-        gateway_load_balancer_frontend_ip_configuration_id = null
         primary                                            = true
-        private_ip_address                                 = null
+
       },
 
       {
         name                                               = "dev-ip-config2"
         private_ip_address_allocation                      = "Dynamic"
         private_ip_address_version                         = "IPv4"
-        public_ip_address_id                               = null
-        gateway_load_balancer_frontend_ip_configuration_id = null
         primary                                            = false
-        private_ip_address                                 = null
+ 
       }
     ]
 
     # Optional Features
-    auxiliary_mode                 = null
-    auxiliary_sku                  = null
     dns_servers                    = ["8.8.8.8", "8.8.4.4"]
-    edge_zone                      = null
     ip_forwarding_enabled          = false
     accelerated_networking_enabled = false
-    internal_dns_name_label        = null
     tags = {
       "Environment" = "Development"
       "Owner"       = "DevOps Team"

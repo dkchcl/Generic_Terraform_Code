@@ -26,5 +26,9 @@ resource "azurerm_network_security_group" "nsg" {
     }
   }
 
-  tags = each.value.tags
+  tags = lookup(each.value, "tags", {})
 }
+
+
+
+

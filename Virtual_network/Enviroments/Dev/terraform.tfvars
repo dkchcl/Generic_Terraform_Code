@@ -29,7 +29,6 @@ vnet_name = {
     address_space                  = ["10.0.0.0/16"]
     bgp_community                  = "12076:20000"
     dns_servers                    = ["10.1.0.4", "10.1.0.5"]
-    edge_zone                      = null
     flow_timeout_in_minutes        = 10
     private_endpoint_vnet_policies = "Disabled"
 
@@ -61,9 +60,6 @@ vnet_name = {
         default_outbound_access_enabled               = false
         private_endpoint_network_policies             = "Disabled"
         private_link_service_network_policies_enabled = true
-        service_endpoints                             = null
-        service_endpoint_policy_ids                   = null
-        delegation                                    = null
       }
     }
 
@@ -83,12 +79,6 @@ vnet_name = {
     resource_group_name = "dev_rg_02"
     address_space       = ["10.2.0.0/16"]
 
-    bgp_community                  = null
-    dns_servers                    = null
-    edge_zone                      = null
-    flow_timeout_in_minutes        = null
-    private_endpoint_vnet_policies = null
-
     subnets = {
       "subnetA" = {
         name             = "subnet-A"
@@ -102,10 +92,6 @@ vnet_name = {
         # optional fields omitted if not needed
       }
     }
-
-    ddos_protection_plan = null
-    encryption           = null
-    ip_address_pool      = null
   }
 }
 

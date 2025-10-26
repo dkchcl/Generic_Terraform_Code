@@ -27,23 +27,23 @@ public_ip = {
     resource_group_name  = "dev_rg_01"
     location             = "Central India"
     allocation_method    = "Static"
-    zones                = ["1", "2"]
-    ddos_protection_mode = "Enabled"
+    zones                = ["1"]
+    ddos_protection_mode = "Disabled"
     # ddos_protection_plan_id = ""
-    domain_name_label       = "mywebapp"
+    domain_name_label       = "mypublicip"
     domain_name_label_scope = "NoReuse"
-    # edge_zone               = "westus"
-    idle_timeout_in_minutes = 4
-
-    # ip_routing_preference = "MicrosoftNetwork" # Default routing
-
+    # edge_zone               = "zone1"
+    idle_timeout_in_minutes = 10
+    # ip_tags = {
+    #   "AcceleratedNetworking" = "Enabled"
+    # }
     ip_version = "IPv4"
     # public_ip_prefix_id = ""
-    # reverse_fqdn = "dev-pip-01.eastus.cloudapp.azure.com"
+    # reverse_fqdn        = "mypublicip.example.com"
     sku      = "Standard"
     sku_tier = "Regional"
     tags = {
-      env = "dev"
+      "project" = "demo"
     }
   }
 

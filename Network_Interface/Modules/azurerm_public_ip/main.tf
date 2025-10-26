@@ -18,7 +18,7 @@ resource "azurerm_public_ip" "pip" {
   reverse_fqdn            = lookup(each.value, "reverse_fqdn", null)
   sku                     = lookup(each.value, "sku", null)
   sku_tier                = lookup(each.value, "sku_tier", null)
-  tags                    = lookup(each.value, "tags", null)
+  tags                    = lookup(each.value, "tags", {})
 }
 
 
