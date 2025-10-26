@@ -22,6 +22,13 @@ module "nic" {
   subnet_ids  = module.vnet.subnet_ids   # 👈 Pass output from VNet module
 }
 
+module "public_ip" {
+  depends_on = [ module.rg ]
+  source = "../../Modules/azurerm_public_ip"
+  public_ip = var.public_ip
+}
+
+
 
 
 
