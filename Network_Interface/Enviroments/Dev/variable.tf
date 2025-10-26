@@ -95,7 +95,7 @@ variable "nic_name" {
     subnet_index        = number
     ip_configuration = list(object({
       name                                               = string
-      subnet_id                                          = optional(string)
+      # subnet_id                                          = optional(string)
       private_ip_address_allocation                      = string
       private_ip_address_version                         = optional(string)
       public_ip_address_id                               = optional(string)
