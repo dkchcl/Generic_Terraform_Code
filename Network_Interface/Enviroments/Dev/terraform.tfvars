@@ -214,7 +214,7 @@ nics = {
     ip_configuration = [
       {
         name                          = "dev-ip-config1"
-        subnet_id                     = ""
+        subnet_id                     = ""                  # blank, module will auto-pick from vnet_key + subnet_index
         private_ip_address_allocation = "Dynamic"
         private_ip_address_version    = "IPv4"
         primary                       = true
@@ -222,7 +222,7 @@ nics = {
 
       {
         name                          = "dev-ip-config2"
-        subnet_id                     = ""
+        subnet_id                     = ""                       # blank, module will auto-pick from vnet_key + subnet_index
         private_ip_address_allocation = "Dynamic"
         private_ip_address_version    = "IPv4"
         primary                       = false
@@ -249,7 +249,7 @@ nics = {
     ip_configuration = [
       {
         name                          = "dev-ip-config3"
-        subnet_id                     = ""
+        subnet_id                     = ""                              # blank, module will auto-pick from vnet_key + subnet_index
         private_ip_address_allocation = "Dynamic"
       }
     ]
@@ -265,7 +265,7 @@ nics = {
     ip_configuration = [
       {
         name                          = "dev-ip-config4"
-        subnet_id                     = ""
+        subnet_id                     = ""                   # blank, module will auto-pick from vnet_key + subnet_index
         private_ip_address_allocation = "Dynamic"
       }
     ]

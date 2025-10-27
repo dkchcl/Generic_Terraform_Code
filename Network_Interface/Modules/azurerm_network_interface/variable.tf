@@ -30,7 +30,9 @@ variable "nics" {
 }
 
 variable "subnet_ids" {
-  type = map(list(string))
+  description = "Map of subnet IDs by VNet key"
+  type        = map(list(string))
+  default     = {}
 }
 
 
