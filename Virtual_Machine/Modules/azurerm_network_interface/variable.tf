@@ -1,15 +1,15 @@
-variable "nic_name" {
+variable "nics" {
   type = map(object({
     name                = string
     location            = string
     resource_group_name = string
 
-    vnet_key     = string
-    subnet_index = number
+    vnet_key     = optional(string)
+    subnet_index = optional(number)
     # List of IP configuration blocks for the NIC
     ip_configuration = list(object({
       name                                               = string
-      subnet_id                                          = optional(string) # The ID of the subnet to which this IP config is attached
+      subnet_id                                          = string # The ID of the subnet to which this IP config is attached
       private_ip_address_allocation                      = string
       private_ip_address_version                         = optional(string)
       public_ip_address_id                               = optional(string)
@@ -30,7 +30,9 @@ variable "nic_name" {
 }
 
 variable "subnet_ids" {
-  type = map(list(string))
+  description = "Map of subnet IDs by VNet key"
+  type        = map(list(string))
+  default     = {}
 }
 
 
