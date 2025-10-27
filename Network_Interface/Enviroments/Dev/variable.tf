@@ -85,36 +85,6 @@ variable "nsgs" {
   }))
 }
 
-# Variable for NIC
-variable "nic_name" {
-  type = map(object({
-    name                = string
-    location            = string
-    resource_group_name = string
-    vnet_key            = string
-    subnet_index        = number
-    ip_configuration = list(object({
-      name                                               = string
-      # subnet_id                                          = optional(string)
-      private_ip_address_allocation                      = string
-      private_ip_address_version                         = optional(string)
-      public_ip_address_id                               = optional(string)
-      gateway_load_balancer_frontend_ip_configuration_id = optional(string)
-      primary                                            = optional(bool)
-      private_ip_address                                 = optional(string)
-    }))
-
-    auxiliary_mode                 = optional(string)
-    auxiliary_sku                  = optional(string)
-    dns_servers                    = optional(list(string))
-    edge_zone                      = optional(string)
-    ip_forwarding_enabled          = optional(bool)
-    accelerated_networking_enabled = optional(bool)
-    internal_dns_name_label        = optional(string)
-    tags                           = optional(map(string))
-  }))
-}
-
 # Variable for Public IPs
 
 variable "public_ip" {
@@ -140,4 +110,39 @@ variable "public_ip" {
     tags                    = optional(map(string))
   }))
 }
+
+# Variable for NIC
+variable "nics" {
+  type = map(object({
+    name                = string
+    location            = string
+    resource_group_name = string
+    vnet_key            = optional(string)
+    subnet_index        = optional(number)
+    ip_configuration = list(object({
+      name                                               = string
+      subnet_id                                          = string
+      private_ip_address_allocation                      = string
+      private_ip_address_version                         = optional(string)
+      public_ip_address_id                               = optional(string)
+      gateway_load_balancer_frontend_ip_configuration_id = optional(string)
+      primary                                            = optional(bool)
+      private_ip_address                                 = optional(string)
+    }))
+
+    auxiliary_mode                 = optional(string)
+    auxiliary_sku                  = optional(string)
+    dns_servers                    = optional(list(string))
+    edge_zone                      = optional(string)
+    ip_forwarding_enabled          = optional(bool)
+    accelerated_networking_enabled = optional(bool)
+    internal_dns_name_label        = optional(string)
+    tags                           = optional(map(string))
+  }))
+}
+
+
+
+
+
 

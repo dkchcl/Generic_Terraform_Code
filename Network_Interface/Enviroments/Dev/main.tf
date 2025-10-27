@@ -24,7 +24,7 @@ module "public_ip" {
 module "nic" {
   depends_on = [module.rg, module.nsg, module.vnet, module.public_ip]
   source     = "../../Modules/azurerm_network_interface"
-  nic_name   = var.nic_name
+  nics   = var.nics
   subnet_ids  = module.vnet.subnet_ids   # 👈 Pass output from VNet module
 }
 

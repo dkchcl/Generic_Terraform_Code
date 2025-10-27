@@ -164,76 +164,6 @@ nsgs = {
   }
 }
 
-# Network Interface Configuration
-
-nic_name = {
-  nic1 = {
-    name                = "dev-nic-01"
-    location            = "west us"
-    resource_group_name = "dev_rg_01"
-    vnet_key            = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
-    subnet_index        = 0       # agar vnet2 ke subnets list ka index 0 hai
-
-    # IP Configuration
-    ip_configuration = [
-      {
-        name                                               = "dev-ip-config1"
-        private_ip_address_allocation                      = "Dynamic"
-        private_ip_address_version                         = "IPv4"
-        primary                                            = true
-
-      },
-
-      {
-        name                                               = "dev-ip-config2"
-        private_ip_address_allocation                      = "Dynamic"
-        private_ip_address_version                         = "IPv4"
-        primary                                            = false
- 
-      }
-    ]
-
-    # Optional Features
-    dns_servers                    = ["8.8.8.8", "8.8.4.4"]
-    ip_forwarding_enabled          = false
-    accelerated_networking_enabled = false
-    tags = {
-      "Environment" = "Development"
-      "Owner"       = "DevOps Team"
-    }
-  }
-
-  nic2 = {
-    name                = "dev-nic-02"
-    location            = "westus"
-    resource_group_name = "dev_rg_02"
-    vnet_key            = "vnet2"
-    subnet_index        = 0
-    # IP Configuration
-    ip_configuration = [
-      {
-        name                          = "dev-ip-config3"
-        private_ip_address_allocation = "Dynamic"
-      }
-    ]
-  }
-
-  nic3 = {
-    name                = "dev-nic-03"
-    location            = "westus"
-    resource_group_name = "dev_rg_02"
-    vnet_key            = "vnet2"
-    subnet_index        = 1
-    # IP Configuration
-    ip_configuration = [
-      {
-        name                          = "dev-ip-config4"
-        private_ip_address_allocation = "Dynamic"
-      }
-    ]
-  }
-}
-
 # Public IP Addresses
 
 public_ip = {
@@ -269,6 +199,80 @@ public_ip = {
     allocation_method   = "Static"
   }
 }
+
+# Network Interface Configuration
+
+nics = {
+  nic1 = {
+    name                = "dev-nic-01"
+    location            = "west us"
+    resource_group_name = "dev_rg_01"
+    vnet_key            = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+    subnet_index        = 0       # agar vnet2 ke subnets list ka index 0 hai
+
+    # IP Configuration
+    ip_configuration = [
+      {
+        name                          = "dev-ip-config1"
+        subnet_id                     = ""
+        private_ip_address_allocation = "Dynamic"
+        private_ip_address_version    = "IPv4"
+        primary                       = true
+      },
+
+      {
+        name                          = "dev-ip-config2"
+        subnet_id                     = ""
+        private_ip_address_allocation = "Dynamic"
+        private_ip_address_version    = "IPv4"
+        primary                       = false
+      }
+    ]
+
+    # Optional Features
+    dns_servers                    = ["8.8.8.8", "8.8.4.4"]
+    ip_forwarding_enabled          = false
+    accelerated_networking_enabled = false
+    tags = {
+      "Environment" = "Development"
+      "Owner"       = "DevOps Team"
+    }
+  }
+
+  nic2 = {
+    name                = "dev-nic-02"
+    location            = "westus"
+    resource_group_name = "dev_rg_02"
+    vnet_key            = "vnet2"
+    subnet_index        = 0
+    # IP Configuration
+    ip_configuration = [
+      {
+        name                          = "dev-ip-config3"
+        subnet_id                     = ""
+        private_ip_address_allocation = "Dynamic"
+      }
+    ]
+  }
+
+  nic3 = {
+    name                = "dev-nic-03"
+    location            = "westus"
+    resource_group_name = "dev_rg_02"
+    vnet_key            = "vnet2"
+    subnet_index        = 1
+    # IP Configuration
+    ip_configuration = [
+      {
+        name                          = "dev-ip-config4"
+        subnet_id                     = ""
+        private_ip_address_allocation = "Dynamic"
+      }
+    ]
+  }
+}
+
+
 
 
 
