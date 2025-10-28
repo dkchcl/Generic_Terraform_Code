@@ -207,8 +207,6 @@ nics = {
     name                = "dev-nic-01"
     location            = "west us"
     resource_group_name = "dev_rg_01"
-    vnet_key            = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
-    subnet_index        = 0       # agar vnet2 ke subnets list ka index 0 hai
 
     # IP Configuration
     ip_configuration = [
@@ -218,6 +216,10 @@ nics = {
         private_ip_address_allocation = "Dynamic"
         private_ip_address_version    = "IPv4"
         primary                       = true
+        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+        public_ip_key                 = "pip1"
+        public_ip_index               = 0
       },
 
       {
@@ -226,6 +228,10 @@ nics = {
         private_ip_address_allocation = "Dynamic"
         private_ip_address_version    = "IPv4"
         primary                       = false
+        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+        public_ip_key                 = "pip1"
+        public_ip_index               = 0
       }
     ]
 
@@ -243,14 +249,17 @@ nics = {
     name                = "dev-nic-02"
     location            = "westus"
     resource_group_name = "dev_rg_02"
-    vnet_key            = "vnet2"
-    subnet_index        = 0
+
     # IP Configuration
     ip_configuration = [
       {
         name                          = "dev-ip-config3"
         subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
         private_ip_address_allocation = "Dynamic"
+        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+        public_ip_key                 = "pip1"
+        public_ip_index               = 0
       }
     ]
   }
@@ -259,14 +268,17 @@ nics = {
     name                = "dev-nic-03"
     location            = "westus"
     resource_group_name = "dev_rg_02"
-    vnet_key            = "vnet2"
-    subnet_index        = 1
+
     # IP Configuration
     ip_configuration = [
       {
         name                          = "dev-ip-config4"
         subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
         private_ip_address_allocation = "Dynamic"
+        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+        public_ip_key                 = "pip1"
+        public_ip_index               = 0
       }
     ]
   }
@@ -329,47 +341,50 @@ linux_vms = {
       hibernation_enabled = false
     }
 
-    gallery_application = [
-      {
-        version_id = "1.0.0"
-        order      = 1
-        tag        = "stable"
-      }
-    ]
+    # gallery_application = [
+    #   {
+    #     version_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.Compute/galleries/myGallery/applications/myApp/versions/1.0.0"
+    #     order      = 1
+    #     tag        = "stable"
+    #   }
+    # ]
 
-    secret = [
-      {
-        key_vault_id = "/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.KeyVault/vaults/mykv"
-        certificate = [
-          {
-            url = "https://mykv.vault.azure.net/certificates/cert1"
-          }
-        ]
-      }
-    ]
+    # secret = [
+    #   {
+    #     key_vault_id = "/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.KeyVault/vaults/mykv"
+    #     certificate = [
+    #       {
+    #         url = "https://mykv.vault.azure.net/certificates/cert1"
+    #       }
+    #     ]
+    #   }
+    # ]
 
     os_image_notification = {
-      timeout = "PT1H"
+      timeout = "PT15M"
     }
 
     termination_notification = {
       enabled = true
-      timeout = "PT30M"
+      timeout = "PT10M"
     }
   }
 
   vm2 = {
-    name                  = "demo-linux-vm2"
-    location              = "East US 2"
-    resource_group_name   = "rg-demo"
+    name                  = "dev-vm-02"
+    location              = "westus"
+    resource_group_name   = "dev_rg_01"
     network_interface_ids = ["/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.Network/networkInterfaces/nic2"]
     size                  = "Standard_B2s"
     os_disk = {
-      caching = "ReadWrite"
+      caching              = "ReadWrite"
+      storage_account_type = "Standard_LRS"
+      disk_size_gb         = 30
     }
 
-    admin_username = "adminuser"
-    admin_password = "Bbpl@#123456"
+    admin_username                  = "adminuser"
+    admin_password                  = "Bbpl@#123456"
+    disable_password_authentication = false
 
     tags = {
       environment = "test"

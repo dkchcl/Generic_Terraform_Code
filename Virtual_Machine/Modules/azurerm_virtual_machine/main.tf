@@ -65,7 +65,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   # SSH Keys (dynamic block)
   dynamic "admin_ssh_key" {
-    for_each = lookup(each.value, "admin_ssh_key", [])
+    for_each = coalesce(each.value.admin_ssh_key, [])
     content {
       username   = admin_ssh_key.value.username
       public_key = admin_ssh_key.value.public_key
@@ -110,7 +110,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   # Gallery Application
   dynamic "gallery_application" {
-    for_each = lookup(each.value, "gallery_application", [])
+    for_each = coalesce(each.value.gallery_application, [])
     content {
       version_id                                  = gallery_application.value.version_id
       automatic_upgrade_enabled                   = lookup(gallery_application.value, "automatic_upgrade_enabled", null)
@@ -123,7 +123,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   # Secrets
   dynamic "secret" {
-    for_each = lookup(each.value, "secret", [])
+    for_each = coalesce(each.value.secret, [])
     content {
       key_vault_id = secret.value.key_vault_id
       dynamic "certificate" {

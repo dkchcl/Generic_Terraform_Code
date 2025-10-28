@@ -14,7 +14,7 @@ resource "azurerm_network_interface" "nic" {
       subnet_id                                          = coalesce(ip_configuration.value.subnet_id, try(var.subnet_ids[each.value.vnet_key][each.value.subnet_index], null))
       private_ip_address_allocation                      = ip_configuration.value.private_ip_address_allocation # Specifies how the private IP address is assigned (Dynamic or Static)
       private_ip_address_version                         = lookup(ip_configuration.value, "private_ip_address_version", null)
-      public_ip_address_id                               = lookup(ip_configuration.value, "public_ip_address_id", null)
+      public_ip_address_id                               = coalesce(ip_configuration.value.public_ip_address_id, try(var.public_ip_ids[each.value.public_ip_key][each.value.public_ip_index], null))
       gateway_load_balancer_frontend_ip_configuration_id = lookup(ip_configuration.value, "gateway_load_balancer_frontend_ip_configuration_id", null)
       primary                                            = lookup(ip_configuration.value, "primary", false)
       private_ip_address                                 = lookup(ip_configuration.value, "private_ip_address", null)

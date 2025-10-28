@@ -9,12 +9,6 @@ module "vnet" {
   vnet_name  = var.vnet_name
 }
 
-module "nsg" {
-  depends_on = [module.rg]
-  source     = "../../Modules/azurerm_network_security_group"
-  nsgs       = var.nsgs
-}
-
 module "public_ip" {
   depends_on = [module.rg]
   source     = "../../Modules/azurerm_public_ip"
@@ -22,13 +16,17 @@ module "public_ip" {
 }
 
 module "nic" {
-  depends_on = [module.rg, module.nsg, module.vnet, module.public_ip]
+  depends_on = [module.rg, module.vnet, module.public_ip]
   source     = "../../Modules/azurerm_network_interface"
   nics       = var.nics
   subnet_ids = try(module.vnet.subnet_ids, {})                      # 👈 Pass output from VNet module
 }
 
-
+module "nsg" {
+  depends_on = [module.rg]
+  source     = "../../Modules/azurerm_network_security_group"
+  nsgs       = var.nsgs
+}
 
 
 

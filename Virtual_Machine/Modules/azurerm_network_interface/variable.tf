@@ -4,8 +4,6 @@ variable "nics" {
     location            = string
     resource_group_name = string
 
-    vnet_key     = optional(string)
-    subnet_index = optional(number)
     # List of IP configuration blocks for the NIC
     ip_configuration = list(object({
       name                                               = string
@@ -16,6 +14,10 @@ variable "nics" {
       gateway_load_balancer_frontend_ip_configuration_id = optional(string)
       primary                                            = optional(bool)
       private_ip_address                                 = optional(string)
+      vnet_key                                           = optional(string)
+      subnet_index                                       = optional(number)
+      public_ip_key                                      = optional(string)
+      public_ip_index                                    = optional(number)
     }))
 
     auxiliary_mode                 = optional(string)
@@ -35,6 +37,10 @@ variable "subnet_ids" {
   default     = {}
 }
 
+variable "public_ip_ids" {
+
+
+}
 
 
 
