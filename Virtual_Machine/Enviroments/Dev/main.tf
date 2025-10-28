@@ -20,7 +20,7 @@ module "nic" {
   source     = "../../Modules/azurerm_network_interface"
   nics       = var.nics
   subnet_ids = module.vnet.subnet_ids # 👈 Pass output from VNet module
-  public_ip_ids = module.public_ip.public_ip_ids
+  public_ip_ids = module.public_ip.pip_ids
 
 }
 
