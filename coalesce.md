@@ -1,4 +1,146 @@
-### subnet_id = coalesce(ip_configuration.value.subnet_id, try(var.subnet_ids[each.value.vnet_key][each.value.subnet_index], null))
+## **output block** for **subnet IDs**
+
+Yeh Terraform ka ek **output block** hai jo Azure ke **virtual networks (VNets)** ke andar ke **subnet IDs** ko ek organized format me export kar raha hai.
+
+---
+
+### 🔹 Pura Code:
+
+```hcl
+output "subnet_ids" {
+  value = {
+    for vnet_key, vnet in azurerm_virtual_network.vnet :
+    vnet_key => [
+      for sn in vnet.subnet : sn.id
+    ]
+  }
+}
+```
+
+---
+
+## 🧩 1. `output "subnet_ids"` ka matlab
+
+Terraform me **`output`** block ka use tab hota hai jab hum chahte hain ke terraform apply ke baad kuch values output me dikhaye — taaki hum unhe:
+
+* Console par dekh sakein
+* Dusre modules me input ke roop me pass kar sakein
+* Ya Terraform Cloud / CI/CD pipelines me use kar sakein
+
+Yahaan, hum ek output variable bana rahe hain jiska naam hai `"subnet_ids"`.
+
+---
+
+## 🧩 2. `value = { ... }` — Yeh ek map expression hai
+
+`value` ke andar hum ek **map** bana rahe hain jisme:
+
+* **key** = har virtual network ka naam (ya key)
+* **value** = us virtual network ke saare subnet IDs ki ek **list**
+
+Toh final output kuch is tarah dikhega:
+
+```hcl
+subnet_ids = {
+  "vnet1" = ["subnet1_id", "subnet2_id"],
+  "vnet2" = ["subnetA_id", "subnetB_id"]
+}
+```
+
+---
+
+## 🧩 3. Outer `for` loop:
+
+```hcl
+for vnet_key, vnet in azurerm_virtual_network.vnet :
+```
+
+* Yahaan `azurerm_virtual_network.vnet` ek **resource** hai jisme multiple VNets ho sakte hain.
+
+* Agar aapne VNet resource aise define kiya hai:
+
+  ```hcl
+  resource "azurerm_virtual_network" "vnet" {
+    for_each = var.vnets
+    ...
+  }
+  ```
+
+  Toh har VNet ke liye Terraform ek unique key rakhta hai (for example, `vnet_key = "prod"` ya `"dev"`).
+
+* Toh yahaan hum **har VNet ke liye** ek iteration chala rahe hain.
+
+---
+
+## 🧩 4. Inner `for` loop:
+
+```hcl
+[ for sn in vnet.subnet : sn.id ]
+```
+
+* Har `vnet` ke andar `vnet.subnet` ek **list of subnet blocks** hoti hai.
+* Har subnet ka ek unique **ID** hota hai (Azure resource ID jaisa).
+* Yeh inner loop ek **list of subnet IDs** banata hai.
+
+For example:
+
+```hcl
+vnet.subnet = [
+  { name = "frontend", id = "/subscriptions/.../subnets/frontend" },
+  { name = "backend",  id = "/subscriptions/.../subnets/backend" }
+]
+```
+
+Is loop ke baad result hoga:
+
+```hcl
+["/subscriptions/.../frontend", "/subscriptions/.../backend"]
+```
+
+---
+
+## 🧩 5. Combined result:
+
+Outer loop har VNet ke liye inner loop ka result assign karega:
+
+```hcl
+vnet_key => [ subnet IDs ki list ]
+```
+
+Example final output:
+
+```hcl
+subnet_ids = {
+  "dev" = [
+    "/subscriptions/1234/resourceGroups/dev-rg/providers/Microsoft.Network/virtualNetworks/dev-vnet/subnets/app",
+    "/subscriptions/1234/resourceGroups/dev-rg/providers/Microsoft.Network/virtualNetworks/dev-vnet/subnets/db"
+  ],
+  "prod" = [
+    "/subscriptions/1234/resourceGroups/prod-rg/providers/Microsoft.Network/virtualNetworks/prod-vnet/subnets/web",
+    "/subscriptions/1234/resourceGroups/prod-rg/providers/Microsoft.Network/virtualNetworks/prod-vnet/subnets/db"
+  ]
+}
+```
+
+---
+
+## 🧾 **Summary:**
+
+| Part                                            | Meaning                                             |
+| ----------------------------------------------- | --------------------------------------------------- |
+| `output "subnet_ids"`                           | Output variable ka naam                             |
+| `azurerm_virtual_network.vnet`                  | Terraform resource jisme multiple VNets define hain |
+| `for vnet_key, vnet in ...`                     | Har VNet par loop                                   |
+| `vnet_key => [ for sn in vnet.subnet : sn.id ]` | Har VNet ke liye uske subnet IDs ki list banao      |
+| **Final Output**                                | Ek map: `{ vnet_name = [subnet_ids...] }`           |
+
+---
+
+
+
+
+
+## subnet_id = coalesce(ip_configuration.value.subnet_id, try(var.subnet_ids[each.value.vnet_key][each.value.subnet_index], null))
 
 Yeh line **Terraform** ki hai — specifically ek **expression** hai jo kisi variable (`subnet_id`) ko assign kar raha hai.
 Chalo ise **step-by-step** samjhte hain 👇
