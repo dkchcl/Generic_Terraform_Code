@@ -5,13 +5,12 @@ variable "nics" {
     location            = string
     resource_group_name = string
 
-
     ip_configuration = list(object({
       name                                               = string
-      subnet_id                                          = string           # ✅ required hai
-      vnet_key                                           = optional(string) # required
-      subnet_name                                        = optional(string) # required
+      subnet_id                                          = string
       private_ip_address_allocation                      = string
+      vnet_key                                           = optional(string)
+      subnet_name                                        = optional(string)
       private_ip_address_version                         = optional(string)
       public_ip_address_id                               = optional(string)
       gateway_load_balancer_frontend_ip_configuration_id = optional(string)
@@ -36,11 +35,11 @@ variable "nics" {
 variable "subnet_ids" {
   description = "Map of VNet keys to subnet name → ID maps"
   type        = map(map(string))
-  default = {}  # Empty map as default
+  default     = {} # Empty map as default
 }
 
 variable "public_ip_ids" {
-
+type = map(map(string))
 
 }
 

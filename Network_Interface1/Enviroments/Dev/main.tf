@@ -30,17 +30,12 @@ module "nsg" {
   nsgs       = var.nsgs
 }
 
-# module "nic_nsg_assoc" {
-#   source = "../../Modules/azurerm_nic_nsg_assoc"
-#   nic_id = module.nic.nic_id
-#   nsg_id = module.nsg.nsg_id
-# }
+module "nic_nsg_assoc" {
+  source = "../../Modules/azurerm_nic_nsg_assoc"
+  nic_id = module.nic.nic_ids["nic1"]
+  nsg_id = module.nsg.nsg_ids["web"]
+}
 
-# module "vm" {
-#   depends_on = [module.rg, module.vnet, module.public_ip, module.nsg, module.nic]
-#   source     = "../../Modules/azurerm_virtual_machine"
-#   linux_vms  = var.linux_vms
-# }
 
 
 

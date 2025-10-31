@@ -206,199 +206,229 @@ nics = {
   nic1 = {
     name                = "dev-nic-01"
     location            = "west us"
-    resource_group_name = "dev_rg_01"
+    resource_group_name = "dev_rg_02"
 
-    # IP Configuration
     ip_configuration = [
       {
-        name                          = "dev-ip-config1"
-        subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
+        name                          = "ipconfig1"
+        subnet_id                     = ""                    # empty = trigger lookup
+        vnet_key                      = "vnet2"
+        subnet_name                   = "subnet-A"
         private_ip_address_allocation = "Dynamic"
-        private_ip_address_version    = "IPv4"
-        primary                       = true
-        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
-        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
-        public_ip_key                 = "pip1"
-        public_ip_index               = 0
-      },
-
-      {
-        name                          = "dev-ip-config2"
-        subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
-        private_ip_address_allocation = "Dynamic"
-        private_ip_address_version    = "IPv4"
-        primary                       = false
-        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
-        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
-        public_ip_key                 = "pip1"
-        public_ip_index               = 0
       }
     ]
-
-    # Optional Features
-    dns_servers                    = ["8.8.8.8", "8.8.4.4"]
-    ip_forwarding_enabled          = false
-    accelerated_networking_enabled = false
-    tags = {
-      "Environment" = "Development"
-      "Owner"       = "DevOps Team"
-    }
   }
-
   nic2 = {
     name                = "dev-nic-02"
-    location            = "westus"
+    location            = "west us"
     resource_group_name = "dev_rg_02"
 
-    # IP Configuration
     ip_configuration = [
       {
-        name                          = "dev-ip-config3"
-        subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
+        name                          = "ipconfig2"
+        subnet_id                     = ""                    # empty = trigger lookup
+        vnet_key                      = "vnet2"
+        subnet_name                   = "subnet-B"
         private_ip_address_allocation = "Dynamic"
-        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
-        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
-        public_ip_key                 = "pip1"
-        public_ip_index               = 0
       }
     ]
   }
+  # nic1 = {
+  #   name                = "dev-nic-01"
+  #   location            = "west us"
+  #   resource_group_name = "dev_rg_01"
 
-  nic3 = {
-    name                = "dev-nic-03"
-    location            = "westus"
-    resource_group_name = "dev_rg_02"
+  #   # IP Configuration
+  #   ip_configuration = [
+  #     {
+  #       name                          = "dev-ip-config1"
+  #       subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
+  #       private_ip_address_allocation = "Dynamic"
+  #       private_ip_address_version    = "IPv4"
+  #       primary                       = true
+  #       vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+  #       subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+  #       public_ip_key                 = "pip1"
+  #       public_ip_index               = 0
+  #     },
 
-    # IP Configuration
-    ip_configuration = [
-      {
-        name                          = "dev-ip-config4"
-        subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
-        private_ip_address_allocation = "Dynamic"
-        vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
-        subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
-        public_ip_key                 = "pip1"
-        public_ip_index               = 0
-      }
-    ]
-  }
+  #     {
+  #       name                          = "dev-ip-config2"
+  #       subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
+  #       private_ip_address_allocation = "Dynamic"
+  #       private_ip_address_version    = "IPv4"
+  #       primary                       = false
+  #       vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+  #       subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+  #       public_ip_key                 = "pip1"
+  #       public_ip_index               = 0
+  #     }
+  #   ]
+
+  #   # Optional Features
+  #   dns_servers                    = ["8.8.8.8", "8.8.4.4"]
+  #   ip_forwarding_enabled          = false
+  #   accelerated_networking_enabled = false
+  #   tags = {
+  #     "Environment" = "Development"
+  #     "Owner"       = "DevOps Team"
+  #   }
+  # }
+
+  # nic2 = {
+  #   name                = "dev-nic-02"
+  #   location            = "westus"
+  #   resource_group_name = "dev_rg_02"
+
+  #   # IP Configuration
+  #   ip_configuration = [
+  #     {
+  #       name                          = "dev-ip-config3"
+  #       subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
+  #       private_ip_address_allocation = "Dynamic"
+  #       vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+  #       subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+  #       public_ip_key                 = "pip1"
+  #       public_ip_index               = 0
+  #     }
+  #   ]
+  # }
+
+  # nic3 = {
+  #   name                = "dev-nic-03"
+  #   location            = "westus"
+  #   resource_group_name = "dev_rg_02"
+
+  #   # IP Configuration
+  #   ip_configuration = [
+  #     {
+  #       name                          = "dev-ip-config4"
+  #       subnet_id                     = "" # blank, module will auto-pick from vnet_key + subnet_index
+  #       private_ip_address_allocation = "Dynamic"
+  #       vnet_key                      = "vnet2" # ye tu apne vnet map me jo key use kar raha hai woh dalega
+  #       subnet_index                  = 0       # agar vnet2 ke subnets list ka index 0 hai
+  #       public_ip_key                 = "pip1"
+  #       public_ip_index               = 0
+  #     }
+  #   ]
+  # }
 }
 
 # Linux Virtual Machines
 
-linux_vms = {
-  vm1 = {
-    name                  = "dev-vm-01"
-    location              = "west us"
-    resource_group_name   = "dev_rg_01"
-    network_interface_ids = ["/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.Network/networkInterfaces/nic1"]
-    size                  = "Standard_B1ms"
-    os_disk = {
-      caching              = "ReadWrite"
-      storage_account_type = "Standard_LRS"
-      disk_size_gb         = 30
-    }
+# linux_vms = {
+#   vm1 = {
+#     name                  = "dev-vm-01"
+#     location              = "west us"
+#     resource_group_name   = "dev_rg_01"
+#     network_interface_ids = ["/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.Network/networkInterfaces/nic1"]
+#     size                  = "Standard_B1ms"
+#     os_disk = {
+#       caching              = "ReadWrite"
+#       storage_account_type = "Standard_LRS"
+#       disk_size_gb         = 30
+#     }
 
-    admin_username                  = "adminuser"
-    admin_password                  = "Bbpl@#123456"
-    disable_password_authentication = false
+#     admin_username                  = "adminuser"
+#     admin_password                  = "Bbpl@#123456"
+#     disable_password_authentication = false
 
-    # admin_ssh_key = [
-    #   {
-    #     username   = "azureuser"
-    #     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC..."
-    #   }
-    # ]
+#     # admin_ssh_key = [
+#     #   {
+#     #     username   = "azureuser"
+#     #     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC..."
+#     #   }
+#     # ]
 
-    tags = {
-      environment = "dev"
-      project     = "demo"
-    }
+#     tags = {
+#       environment = "dev"
+#       project     = "demo"
+#     }
 
-    source_image_reference = {
-      publisher = "Canonical"
-      offer     = "0001-com-ubuntu-server-jammy"
-      sku       = "22_04-lts"
-      version   = "latest"
-    }
+#     source_image_reference = {
+#       publisher = "Canonical"
+#       offer     = "0001-com-ubuntu-server-jammy"
+#       sku       = "22_04-lts"
+#       version   = "latest"
+#     }
 
-    boot_diagnostics = {
-      storage_account_uri = "https://mystorageaccount.blob.core.windows.net/"
-    }
+#     boot_diagnostics = {
+#       storage_account_uri = "https://mystorageaccount.blob.core.windows.net/"
+#     }
 
-    identity = {
-      type = "SystemAssigned"
-    }
+#     identity = {
+#       type = "SystemAssigned"
+#     }
 
-    plan = {
-      name      = "demo-plan"
-      product   = "demo-product"
-      publisher = "demo-publisher"
-    }
+#     plan = {
+#       name      = "demo-plan"
+#       product   = "demo-product"
+#       publisher = "demo-publisher"
+#     }
 
-    additional_capabilities = {
-      ultra_ssd_enabled   = false
-      hibernation_enabled = false
-    }
+#     additional_capabilities = {
+#       ultra_ssd_enabled   = false
+#       hibernation_enabled = false
+#     }
 
-    # gallery_application = [
-    #   {
-    #     version_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.Compute/galleries/myGallery/applications/myApp/versions/1.0.0"
-    #     order      = 1
-    #     tag        = "stable"
-    #   }
-    # ]
+#     # gallery_application = [
+#     #   {
+#     #     version_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.Compute/galleries/myGallery/applications/myApp/versions/1.0.0"
+#     #     order      = 1
+#     #     tag        = "stable"
+#     #   }
+#     # ]
 
-    # secret = [
-    #   {
-    #     key_vault_id = "/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.KeyVault/vaults/mykv"
-    #     certificate = [
-    #       {
-    #         url = "https://mykv.vault.azure.net/certificates/cert1"
-    #       }
-    #     ]
-    #   }
-    # ]
+#     # secret = [
+#     #   {
+#     #     key_vault_id = "/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.KeyVault/vaults/mykv"
+#     #     certificate = [
+#     #       {
+#     #         url = "https://mykv.vault.azure.net/certificates/cert1"
+#     #       }
+#     #     ]
+#     #   }
+#     # ]
 
-    os_image_notification = {
-      timeout = "PT15M"
-    }
+#     os_image_notification = {
+#       timeout = "PT15M"
+#     }
 
-    termination_notification = {
-      enabled = true
-      timeout = "PT10M"
-    }
-  }
+#     termination_notification = {
+#       enabled = true
+#       timeout = "PT10M"
+#     }
+#   }
 
-  vm2 = {
-    name                  = "dev-vm-02"
-    location              = "westus"
-    resource_group_name   = "dev_rg_01"
-    network_interface_ids = ["/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.Network/networkInterfaces/nic2"]
-    size                  = "Standard_B2s"
-    os_disk = {
-      caching              = "ReadWrite"
-      storage_account_type = "Standard_LRS"
-      disk_size_gb         = 30
-    }
+#   vm2 = {
+#     name                  = "dev-vm-02"
+#     location              = "westus"
+#     resource_group_name   = "dev_rg_01"
+#     network_interface_ids = ["/subscriptions/xxxx/resourceGroups/rg-demo/providers/Microsoft.Network/networkInterfaces/nic2"]
+#     size                  = "Standard_B2s"
+#     os_disk = {
+#       caching              = "ReadWrite"
+#       storage_account_type = "Standard_LRS"
+#       disk_size_gb         = 30
+#     }
 
-    admin_username                  = "adminuser"
-    admin_password                  = "Bbpl@#123456"
-    disable_password_authentication = false
+#     admin_username                  = "adminuser"
+#     admin_password                  = "Bbpl@#123456"
+#     disable_password_authentication = false
 
-    tags = {
-      environment = "test"
-      project     = "demo"
-    }
+#     tags = {
+#       environment = "test"
+#       project     = "demo"
+#     }
 
-    source_image_reference = {
-      publisher = "Canonical"
-      offer     = "UbuntuServer"
-      sku       = "20_04-lts"
-      version   = "latest"
-    }
-  }
-}
+#     source_image_reference = {
+#       publisher = "Canonical"
+#       offer     = "UbuntuServer"
+#       sku       = "20_04-lts"
+#       version   = "latest"
+#     }
+#   }
+# }
 
 
 
