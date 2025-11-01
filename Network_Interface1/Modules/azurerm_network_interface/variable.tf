@@ -17,7 +17,7 @@ variable "nics" {
       primary                                            = optional(bool)
       private_ip_address                                 = optional(string)
       public_ip_key                                      = optional(string)
-      public_ip_index                                    = optional(number)
+      public_ip_name                                     = optional(string)
     }))
 
     auxiliary_mode                 = optional(string)
@@ -39,8 +39,8 @@ variable "subnet_ids" {
 }
 
 variable "public_ip_ids" {
-type = map(map(string))
-
+  type    = map(string)
+  default = {}
 }
 
 

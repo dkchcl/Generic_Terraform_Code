@@ -16,12 +16,11 @@ module "public_ip" {
 }
 
 module "nic" {
-  depends_on = [module.rg, module.nsg, module.vnet, module.public_ip]
-  source     = "../../Modules/azurerm_network_interface"
-  nics       = var.nics
-  subnet_ids = module.vnet.subnet_ids # 👈 Pass output from VNet module
-  public_ip_ids = module.public_ip.pip_ids
-
+  depends_on    = [module.rg, module.nsg, module.vnet, module.public_ip]
+  source        = "../../Modules/azurerm_network_interface"
+  nics          = var.nics
+  subnet_ids    = module.vnet.subnet_ids # 👈 Pass output from VNet module
+  public_ip_ids = module.public_ip.public_ip_id
 }
 
 module "nsg" {
@@ -31,11 +30,10 @@ module "nsg" {
 }
 
 module "nic_nsg_assoc" {
-  source = "../../Modules/azurerm_nic_nsg_assoc"
-  nic_id = module.nic.nic_ids["nic1"]
-  nsg_id = module.nsg.nsg_ids["web"]
+  source  = "../../Modules/azurerm_nic_nsg_assoc"
+  nic_ids = module.nic.nic_id
+  nsg_ids = module.nsg.nsg_id  
 }
-
 
 
 

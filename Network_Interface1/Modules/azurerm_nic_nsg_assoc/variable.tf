@@ -1,8 +1,10 @@
-variable "nic_id" {
-  type = map()
+variable "nic_ids" {
+  description = "List of NIC IDs"
+  type        = list(string)
 }
 
-variable "nsg_id" {
-  
+variable "nsg_ids" {
+  description = "NSG ID to associate"
+  type        = map(string)
 }
 

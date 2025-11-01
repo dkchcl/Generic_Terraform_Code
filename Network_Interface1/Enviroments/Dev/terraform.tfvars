@@ -160,6 +160,8 @@ nics = {
         vnet_key                      = "vnet1"
         subnet_name                   = "subnet-02"
         private_ip_address_allocation = "Dynamic"
+        public_ip_key                 = "pip2"
+        public_ip_name                = "dev-pip-02"
       }
     ]
   }
